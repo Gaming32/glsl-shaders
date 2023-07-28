@@ -1,10 +1,15 @@
 {
-  "id": "examplemod",
+  "id": "glsl-shaders",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example mod.",
-  "mainClass": "com.example.ExampleMod",
+  "name": "GLSL Shaders",
+  "description": "A port of the GLSL shaders mod by daxnitro to the prcraft mod loader",
+  "mainClass": "io.github.gaming32.glslshaders.GlslShaders",
   "transformers": [
-    "com.example.transformers.MixinGuiTitleScreen"
+    "io.github.gaming32.glslshaders.transformers.MixinEntityRenderer",
+    "io.github.gaming32.glslshaders.transformers.MixinRenderBlocks",
+    "io.github.gaming32.glslshaders.transformers.MixinRenderGlobal",
+    "io.github.gaming32.glslshaders.transformers.MixinTesselator",
+    "io.github.gaming32.glslshaders.transformers.MixinWorldRenderer",
+    "io.github.gaming32.glslshaders.transformers.WrapGlEnable"
   ]
 }

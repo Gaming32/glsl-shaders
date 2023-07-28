@@ -7,7 +7,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    mavenLocal()
     maven("https://maven.wagyourtail.xyz/snapshots")
     maven("https://maven.neoforged.net/releases")
     maven("https://maven.minecraftforge.net/")
@@ -33,6 +32,6 @@ tasks.withType<KotlinCompile> {
 }
 
 dependencies {
-    implementation("xyz.wagyourtail.unimined:unimined:1.0.0")
+    implementation("xyz.wagyourtail.unimined:unimined:1.0.0-SNAPSHOT")
     implementation("io.github.gaming32:prcraft-installer:1.0.5")
 }
