@@ -4,14 +4,11 @@ import io.github.gaming32.prcraftinstaller.PrcraftInstaller
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import xyz.wagyourtail.unimined.api.mapping.MappingNamespaceTree
-import xyz.wagyourtail.unimined.api.minecraft.MinecraftConfig
 import xyz.wagyourtail.unimined.api.runs.RunConfig
 import xyz.wagyourtail.unimined.internal.minecraft.MinecraftProvider
 import xyz.wagyourtail.unimined.internal.minecraft.patch.AbstractMinecraftTransformer
 import xyz.wagyourtail.unimined.internal.minecraft.patch.MinecraftJar
-import xyz.wagyourtail.unimined.internal.minecraft.patch.forge.fg3.mcpconfig.SubprocessExecutor
 import xyz.wagyourtail.unimined.internal.minecraft.resolver.Library
-import xyz.wagyourtail.unimined.util.FinalizeOnRead
 import xyz.wagyourtail.unimined.util.withSourceSet
 import java.nio.file.Files
 import kotlin.io.path.deleteIfExists
@@ -66,7 +63,7 @@ class PrcraftMinecraftTransformer(project: Project, provider: MinecraftProvider)
         )
         try {
             PrcraftInstaller.runInstaller(Files.newByteChannel(prcraft.resolve().first { it.extension == "zip" }
-                .toPath()), "0.0.0", minecraft.path, output.path)
+                .toPath()), prcraft.dependencies.first().version, minecraft.path, output.path)
         } catch (e: Exception) {
             output.path.deleteIfExists()
             throw e
@@ -78,8 +75,10 @@ class PrcraftMinecraftTransformer(project: Project, provider: MinecraftProvider)
         config.mainClass = "net.minecraft.modding.impl.ModdedLaunch"
         config.args.clear()
         config.args.addAll(listOf(
-            "--username", "Dev", "--accessToken", "0",
-            "--gameDir", config.workingDir.absolutePath
+            "--username", "Dev",
+            "--accessToken", "0",
+            "--gameDir", config.workingDir.absolutePath,
+            "--disableUpdate"
         ))
 
         super.applyClientRunTransform(config)

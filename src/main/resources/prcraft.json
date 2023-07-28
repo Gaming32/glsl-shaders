@@ -1,9 +1,12 @@
 {
   "id": "glsl-shaders",
-  "version": "${version}",
   "name": "GLSL Shaders",
+  "version": "${version}",
   "description": "A port of the GLSL shaders mod by daxnitro to the prcraft mod loader",
   "mainClass": "io.github.gaming32.glslshaders.GlslShaders",
+  "dependencies": {
+    "prcraft": ">=0.4.521"
+  },
   "transformers": [
     "io.github.gaming32.glslshaders.transformers.MixinEntityRenderer",
     "io.github.gaming32.glslshaders.transformers.MixinRenderBlocks",
