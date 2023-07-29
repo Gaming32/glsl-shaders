@@ -642,10 +642,10 @@ public class Shaders {
 
 		BufferedReader reader;
 		try {
-			reader = new BufferedReader(new InputStreamReader(Shaders.class.getResourceAsStream('/' + filename)));
+			reader = new BufferedReader(new FileReader(new File(filename)));
 		} catch (Exception e) {
 			try {
-				reader = new BufferedReader(new FileReader(new File(filename)));
+				reader = new BufferedReader(new InputStreamReader(Shaders.class.getResourceAsStream('/' + filename)));
 			} catch (Exception e2) {
 				e2.addSuppressed(e);
 				System.out.println("Couldn't open " + filename + "!");
@@ -685,10 +685,10 @@ public class Shaders {
 
 		BufferedReader reader;
 		try {
-			reader = new BufferedReader(new InputStreamReader(Shaders.class.getResourceAsStream('/' + filename)));
+			reader = new BufferedReader(new FileReader(new File(filename)));
 		} catch (Exception e) {
 			try {
-				reader = new BufferedReader(new FileReader(new File(filename)));
+				reader = new BufferedReader(new InputStreamReader(Shaders.class.getResourceAsStream('/' + filename)));
 			} catch (Exception e2) {
 				e2.addSuppressed(e);
 				System.out.println("Couldn't open " + filename + "!");
