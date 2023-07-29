@@ -642,12 +642,14 @@ public class Shaders {
 
 		BufferedReader reader;
 		try {
-			reader = new BufferedReader(new InputStreamReader((Shaders.class).getResourceAsStream(filename)));
+			reader = new BufferedReader(new InputStreamReader(Shaders.class.getResourceAsStream('/' + filename)));
 		} catch (Exception e) {
 			try {
 				reader = new BufferedReader(new FileReader(new File(filename)));
 			} catch (Exception e2) {
+				e2.addSuppressed(e);
 				System.out.println("Couldn't open " + filename + "!");
+				e2.printStackTrace();
 				glDeleteObjectARB(vertShader);
 				return 0;
 			}
@@ -662,6 +664,7 @@ public class Shaders {
 			}
 		} catch (Exception e) {
 				System.out.println("Couldn't read " + filename + "!");
+				e.printStackTrace();
 				glDeleteObjectARB(vertShader);
 				return 0;
 		}
@@ -682,12 +685,14 @@ public class Shaders {
 
 		BufferedReader reader;
 		try {
-			reader = new BufferedReader(new InputStreamReader((Shaders.class).getResourceAsStream(filename)));
+			reader = new BufferedReader(new InputStreamReader(Shaders.class.getResourceAsStream('/' + filename)));
 		} catch (Exception e) {
 			try {
 				reader = new BufferedReader(new FileReader(new File(filename)));
 			} catch (Exception e2) {
+				e2.addSuppressed(e);
 				System.out.println("Couldn't open " + filename + "!");
+				e2.printStackTrace();
 				glDeleteObjectARB(fragShader);
 				return 0;
 			}
@@ -723,6 +728,7 @@ public class Shaders {
 			}
 		} catch (Exception e) {
 				System.out.println("Couldn't read " + filename + "!");
+				e.printStackTrace();
 				glDeleteObjectARB(fragShader);
 				return 0;
 		}

@@ -32,7 +32,7 @@ public class MixinTesselator implements TesselatorExt {
         shadersData[0] = (short)id;
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "<init>", at = @At("RETURN"))
     private void afterInit(int par1) {
         shadersBuffer = GLAllocation.createDirectByteBuffer(par1 / 8 * 4);
         shadersShortBuffer = shadersBuffer.asShortBuffer();

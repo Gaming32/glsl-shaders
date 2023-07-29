@@ -26,7 +26,7 @@ public class MixinEntityRenderer {
         Shaders.beginRender(mc, tickDelta, par2);
     }
 
-    @Inject(method = "renderWorld", at = @At("TAIL"))
+    @Inject(method = "renderWorld", at = @At("RETURN"))
     private void afterRenderWorld(float tickDelta, long par2) {
         Shaders.endRender();
     }
@@ -146,12 +146,12 @@ public class MixinEntityRenderer {
         Shaders.endHand();
     }
 
-    @Inject(method = "enableLightmap", at = @At("TAIL"))
+    @Inject(method = "enableLightmap", at = @At("RETURN"))
     private void afterEnableLightmap(double par1) {
         Shaders.enableLightmap();
     }
 
-    @Inject(method = "disableLightmap", at = @At("TAIL"))
+    @Inject(method = "disableLightmap", at = @At("RETURN"))
     private void afterDisableLightmap(double par1) {
         Shaders.disableLightmap();
     }

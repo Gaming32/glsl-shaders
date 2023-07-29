@@ -27,7 +27,7 @@ public class MixinWorldRenderer {
         return instance.renderBlockByRenderType(par1Block, par2, par3, par4);
     }
 
-    @Inject(method = "updateRenderer", at = @At("TAIL"))
+    @Inject(method = "updateRenderer", at = @At("RETURN"))
     private void afterUpdateRenderer() {
         if (Shaders.entityAttrib >= 0) {
             ((TesselatorExt)Tessellator.instance).setEntity(-1);
