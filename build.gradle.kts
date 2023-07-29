@@ -8,7 +8,7 @@ plugins {
 
 unimined.useGlobalCache = false
 
-group = "com.example"
+group = "io.github.gaming32"
 version = "1.0-SNAPSHOT"
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8

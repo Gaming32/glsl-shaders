@@ -1,2 +1,2 @@
-rootProject.name = "ExamplePrcraftMod"
+rootProject.name = "glsl-shaders"
 
