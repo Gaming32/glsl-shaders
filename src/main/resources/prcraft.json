@@ -5,14 +5,9 @@
   "description": "A port of the GLSL shaders mod by daxnitro to the prcraft mod loader",
   "mainClass": "io.github.gaming32.glslshaders.GlslShaders",
   "dependencies": {
-    "prcraft": ">=0.4.539"
+    "prcraft": ">=0.4.545"
   },
   "transformers": [
-    "io.github.gaming32.glslshaders.transformers.MixinEntityRenderer",
-    "io.github.gaming32.glslshaders.transformers.MixinRenderBlocks",
-    "io.github.gaming32.glslshaders.transformers.MixinRenderGlobal",
-    "io.github.gaming32.glslshaders.transformers.MixinTesselator",
-    "io.github.gaming32.glslshaders.transformers.MixinWorldRenderer",
-    "io.github.gaming32.glslshaders.transformers.WrapGlEnable"
+    "io.github.gaming32.glslshaders.transformers.**"
   ]
 }

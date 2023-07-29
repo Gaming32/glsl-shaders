@@ -5,7 +5,6 @@ import net.lenni0451.lambdaevents.EventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.modding.api.Mod;
 import net.minecraft.modding.api.ModInfo;
-import net.minecraft.modding.api.Prcraft;
 import net.minecraft.modding.api.event.ClientShutdownEvent;
 import net.minecraft.modding.api.event.PhasedEvent;
 import net.minecraft.modding.api.event.PostGameInitialize;
@@ -22,12 +21,11 @@ public class GlslShaders implements Mod {
     @Override
     public void init(ModInfo modInfo, TransformerManager transformerManager) {
         resourceRoot = modInfo.resourcePath();
-        Prcraft.getEventManager().register(this);
         System.out.println("GLSL shaders are fun :)");
     }
 
     @EventHandler
-    public void postInit(PostGameInitialize event) {
+    private void postInit(PostGameInitialize event) {
         final Path shaderpackPath = Minecraft.getMinecraftDir().toPath().resolve("shaderpack.zip");
         if (Files.isRegularFile(shaderpackPath)) {
             System.out.println("Using shaderpack from " + shaderpackPath);
@@ -44,7 +42,7 @@ public class GlslShaders implements Mod {
     }
 
     @EventHandler
-    public void shutdown(ClientShutdownEvent event) {
+    private void shutdown(ClientShutdownEvent event) {
         if (event.getPhase() != PhasedEvent.EventPhase.BEFORE) return;
         if (shaderpackRoot != null) {
             try {
