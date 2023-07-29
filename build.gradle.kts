@@ -15,8 +15,11 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 java.targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
+    maven("https://libraries.minecraft.net/")
     mavenCentral()
     maven("https://maven.jemnetworks.com/releases")
+    maven("https://maven.fabricmc.net")
+    maven("https://maven.lenni0451.net/releases")
 }
 
 dependencies {

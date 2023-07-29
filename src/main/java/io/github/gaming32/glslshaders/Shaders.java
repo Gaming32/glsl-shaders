@@ -10,12 +10,11 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.file.Files;
 
 import static org.lwjgl.opengl.ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
 import static org.lwjgl.opengl.ARBShaderObjects.*;
@@ -640,19 +639,10 @@ public class Shaders {
 		String vertexCode = "";
 		String line;
 
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader(new FileReader(new File(filename)));
-		} catch (Exception e) {
-			try {
-				reader = new BufferedReader(new InputStreamReader(Shaders.class.getResourceAsStream('/' + filename)));
-			} catch (Exception e2) {
-				e2.addSuppressed(e);
-				System.out.println("Couldn't open " + filename + "!");
-				e2.printStackTrace();
-				glDeleteObjectARB(vertShader);
-				return 0;
-			}
+		final BufferedReader reader = openShader(filename);
+		if (reader == null) {
+			glDeleteObjectARB(vertShader);
+			return 0;
 		}
 
 		try {
@@ -667,6 +657,12 @@ public class Shaders {
 				e.printStackTrace();
 				glDeleteObjectARB(vertShader);
 				return 0;
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		glShaderSourceARB(vertShader, vertexCode);
@@ -683,19 +679,10 @@ public class Shaders {
 		String fragCode = "";
 		String line;
 
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader(new FileReader(new File(filename)));
-		} catch (Exception e) {
-			try {
-				reader = new BufferedReader(new InputStreamReader(Shaders.class.getResourceAsStream('/' + filename)));
-			} catch (Exception e2) {
-				e2.addSuppressed(e);
-				System.out.println("Couldn't open " + filename + "!");
-				e2.printStackTrace();
-				glDeleteObjectARB(fragShader);
-				return 0;
-			}
+		final BufferedReader reader = openShader(filename);
+		if (reader == null) {
+			glDeleteObjectARB(fragShader);
+			return 0;
 		}
 
 		try {
@@ -731,12 +718,28 @@ public class Shaders {
 				e.printStackTrace();
 				glDeleteObjectARB(fragShader);
 				return 0;
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		glShaderSourceARB(fragShader, fragCode);
 		glCompileShaderARB(fragShader);
 		printLogInfo(fragShader);
 		return fragShader;
+	}
+
+	private static BufferedReader openShader(String path) {
+		try {
+			return Files.newBufferedReader(GlslShaders.getShaderPath(path));
+		} catch (Exception e) {
+			System.out.println("Couldn't open " + path + "!");
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	private static boolean printLogInfo(int obj) {
