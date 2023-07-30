@@ -33,6 +33,14 @@ unimined.minecraft(sourceSets.main.get()) {
     version(minecraft_version)
     side("client")
 
+// default mappings add packages to some classes...
+// for remapping support you can uncomment this block
+//    mappings {
+//        retroMCP()
+//
+//        devNamespace("mcp")
+//    }
+
     // add our custom transformer
     customPatcher(PrcraftMinecraftTransformer(project, this as MinecraftProvider)) {
         loader(prcraft_version)

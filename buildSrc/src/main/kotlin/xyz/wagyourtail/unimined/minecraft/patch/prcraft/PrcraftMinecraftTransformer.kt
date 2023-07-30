@@ -22,6 +22,7 @@ class PrcraftMinecraftTransformer(project: Project, provider: MinecraftProvider)
         return false
     }
 
+    @JvmOverloads
     fun loader(dep: Any, action: Dependency.() -> Unit  = {}) {
         prcraft.dependencies.add(
             (if (dep is String && !dep.contains(":")) {
@@ -43,6 +44,7 @@ class PrcraftMinecraftTransformer(project: Project, provider: MinecraftProvider)
                     dependsOn("mcp")
                     // allow this to write on top of retroMCP
                     allowDuplicateOutputs()
+                    mapNamespace("named", "mcp")
                     outputs("mcp", true) { listOf("official") }
                 }
             }) {
