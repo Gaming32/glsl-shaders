@@ -7,6 +7,7 @@
     "Gaming32": "Port developer",
     "daxnitro": "Original developer"
   },
+  "environment": "client",
   "mainClass": "io.github.gaming32.glslshaders.GlslShaders",
   "dependencies": {
     "prcraft": ">=0.4.545"

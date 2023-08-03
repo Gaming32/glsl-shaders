@@ -4,6 +4,7 @@ import io.github.gaming32.prcraftinstaller.PrcraftInstaller
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import xyz.wagyourtail.unimined.api.mapping.MappingNamespaceTree
+import xyz.wagyourtail.unimined.api.minecraft.EnvType
 import xyz.wagyourtail.unimined.api.runs.RunConfig
 import xyz.wagyourtail.unimined.internal.minecraft.MinecraftProvider
 import xyz.wagyourtail.unimined.internal.minecraft.patch.AbstractMinecraftTransformer
@@ -82,8 +83,28 @@ class PrcraftMinecraftTransformer(project: Project, provider: MinecraftProvider)
             "--gameDir", config.workingDir.absolutePath,
             "--disableUpdate"
         ))
+        config.jvmArgs += "-Dprcraft.sideEnvironment=client"
 
         super.applyClientRunTransform(config)
+    }
+
+    override fun applyServerRunTransform(config: RunConfig) {
+        config.mainClass = "net.minecraft.modding.impl.ModdedLaunch"
+        config.args.clear()
+        config.args.addAll(listOf(
+            "--gameDir", config.workingDir.absolutePath
+        ))
+        config.jvmArgs += "-Dprcraft.sideEnvironment=dedicated_server"
+
+        super.applyServerRunTransform(config)
+    }
+
+    override fun applyExtraLaunches() {
+        if (provider.side == EnvType.CLIENT) {
+            project.logger.info("[Unimined/Minecraft] server config")
+            provider.runs.addTarget(provider.provideVanillaRunServerTask("server", project.file("run/server")))
+            provider.runs.configFirst("server", (provider.mcPatcher as AbstractMinecraftTransformer)::applyServerRunTransform)
+        }
     }
 
 }

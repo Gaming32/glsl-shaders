@@ -5,9 +5,10 @@ import net.lenni0451.lambdaevents.EventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.modding.api.Mod;
 import net.minecraft.modding.api.ModInfo;
-import net.minecraft.modding.api.event.ClientShutdownEvent;
 import net.minecraft.modding.api.event.PhasedEvent;
-import net.minecraft.modding.api.event.PostGameInitialize;
+import net.minecraft.modding.api.event.client.ClientShutdownEvent;
+import net.minecraft.modding.api.event.client.PostClientInitialize;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -19,13 +20,13 @@ public class GlslShaders implements Mod {
     private static Path shaderpackRoot;
 
     @Override
-    public void init(ModInfo modInfo, TransformerManager transformerManager) {
+    public void init(@NotNull ModInfo modInfo, @NotNull TransformerManager transformerManager) {
         resourceRoot = modInfo.resourcePath();
         System.out.println("GLSL shaders are fun :)");
     }
 
     @EventHandler
-    private void postInit(PostGameInitialize event) {
+    private void postInit(PostClientInitialize event) {
         final Path shaderpackPath = Minecraft.getMinecraftDir().toPath().resolve("shaderpack.zip");
         if (Files.isRegularFile(shaderpackPath)) {
             System.out.println("Using shaderpack from " + shaderpackPath);
